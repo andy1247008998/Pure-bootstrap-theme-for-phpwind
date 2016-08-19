@@ -35,7 +35,7 @@
 						<!--公告结束-->
 						<!--# if ($threaddb) { #-->
 						<div class="thread_posts_list">
-							<table width="100%" id="J_posts_list" summary="帖子列表">
+							<table class="table" width="100%" id="J_posts_list" summary="帖子列表">
 								<!--# foreach ($threaddb as $key => $value) { #-->
 								<tr>
 									<td class="author"><a class="J_user_card_show" data-uid="{$value['created_userid']}" href="{@url:space/index/run?uid=$value['created_userid']}"><img src="{@Pw::getAvatar($value['created_userid'], 'small')}" onerror="this.onerror=null;this.src='{@G:url.images}/face/face_small.jpg'" width="45" height="45" alt="{$value['created_username']}" /></a></td>
