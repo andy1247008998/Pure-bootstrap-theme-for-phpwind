@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+	<application>
+	<name>小岛学园</name>
+	<alias>islandcampus</alias>
+	<version>1.0</version>
+	<pw-version>9.1.0</pw-version>
+	<charset>UTF-8</charset>
+	<type>style</type>
+	<style-type>site</style-type>
+	<description>小岛学园整站模板</description>
+	<logo>images/preview.jpg</logo>
+	<website>
+	</website>
+	<author-name>尊贵的狮子大人</author-name>
+	<author-email>1247008998@qq.com</author-email>
+	<author-icon>
+	</author-icon>
+	</application>
+	</manifest>
