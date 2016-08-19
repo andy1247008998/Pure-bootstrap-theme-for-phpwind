@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<template source='TPL:admin.common.head' />
+</head>
+<body>
+<div class="wrap">
+
+<div class="h_a">功能说明</div>
+
+<div class="prompt_text">
+	<ul>
+        <li>如果你启用了移动版，还需要去<a href="http://phpwind.aliyun.com">APP生成平台</a>作相应的修改</li>
+	</ul>
+</div>
+<form class="J_ajaxForm" action="{@url:native/AccountSecurity/doSessionKey}" method="post" onsubmit="event.stopPropagation();return false">
+<input type="hidden" name="type" value="alipay" />
+<div class="table_full">
+	<table width="100%">
+		<col width="th" />
+		<col width="400"/>
+		<col />
+		
+		<tr>
+		<th>接口密匙</th>
+		<td>
+            <input name="securityKey" type="text" class="input length_4" value="{$config['securityKey']}">
+            <a href="javascript:void(0);RandPwd();" class="btn" role="button">随机</a>
+        </td>
+		<td><div class="fun_tips"></div></td>
+		</tr>
+	</table>
+</div>
+<div class="btn_wrap">
+	<div class="btn_wrap_pd" id="J_sub_wrap">
+        <button type="submit" class="btn btn_submit J_ajax_submit_btn" onclick="if(!confirm('是否确认，确认后需要更新生成平台秘钥')){$(this).unbind();location.reload();}">提交</button>
+	</div>
+</div>
+</form>
+<!--
+<br><br>
+<div class="h_a">APP聊天通讯秘钥一键注册功能说明</div>
+
+<div class="prompt_text">
+	<ul>
+        <li>当您的APP提示消息系统不能正常登陆时，请在此对您的APP通讯秘钥进行一键注册后方可使用</li>
+	</ul>
+</div>
+<div class="btn_wrap">
+	<div class="btn_wrap_pd" id="J_sub_wrap">
+        <button type="button" class="btn btn_submit J_ajax_submit_btn" onclick="location.href='{@url:native/AccountSecurity/doWukongRegist}'">一键注册</button>
+	</div>
+</div
+-->
+</div>
+<template source='TPL:admin.common.footer' />
+<script>
+    function RandPwd(){
+        var str="1234567890!@#$%^&*()abcdefghigklmnopqrst";
+        var arr=[];
+        for(var i=0;i<str.length-1;i++){
+            arr[i]=str.substring(i,i+1);
+        }
+        str=arr.sort(function(){return 0.5-Math.random();});
+        str=arr.join("");
+        $("input[name=securityKey]").val(str.substring(0,32));
+    }
+</script>
+</body>
+</html>

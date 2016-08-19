@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<template source='TPL:admin.common.head' />
+</head>
+<body>
+<div class="wrap">
+	<div class="h_a">Banner管理</div>
+	<div class="prompt_text">
+        Banner为native应用首页显示图片轮播，最多支持4个
+    </div>
+    <form class="J_ajaxForm" data-role="list" action="{@url:native/banner/dosetveiworder}" method="post">
+	<div class="mb10">
+        <a href="{@url:native/Banner/add}" class="btn J_dialog" role="button"><span class="add"></span>添加Banner</a>
+	</div>
+	<div class="table_list">
+		<table width="100%" id="J_table_list" style="table-layout:fixed;">
+			<colgroup>
+				<col width="60">
+				<col width="250">
+				<col width="300">
+				<col width="200">
+				<col>
+			</colgroup>
+			<thead>
+                <tr>
+                    <td>顺序</td>
+                    <td>图片</td>
+                    <td>说明</td>
+                    <td>指向</td>
+                    <td>操作</td>   
+				</tr>
+			</thead>
+			<tbody>
+					<!--# foreach ($configData as $pos => $banner) { #-->
+			<tr id="J_forum_tr_{$banner['banner_id']}">
+                <td><input type="text" class="input mr5" name="bid[{$banner['banner_id']}]" value="{$banner['vieworder']}" style="width:20px;"></td>
+                <td class="tar"><img src="{@Pw::getPath($banner['img'])}?r=<!--# echo mt_rand(1,200); #-->" style="width:200px"/></td>
+                <td>{$banner['title']}</td>
+                <td>{$banner['type']} ({$banner['href']})</td>
+                <td><a href="{@url:native/Banner/add}&bid={$banner['banner_id']}" class="mr5 J_dialog" role="button">[编辑]</a><a href="{@url:native/Banner/del}" class="mr5 J_ajax_del" data-pdata="{'bid': '{$banner['banner_id']}'}">[删除]</a></td>
+			</tr>
+					<!--# } #-->
+			</tbody>
+		</table>
+	</div>
+	<div class="btn_wrap">
+		<div class="btn_wrap_pd">
+			<button type="submit" class="btn btn_submit J_ajax_submit_btn">提交</button>
+		</div>
+	</div>
+	</form>
+	
+</div>
+<template source='TPL:admin.common.footer' />
+<script>
+</script>
+</body>
+</html>

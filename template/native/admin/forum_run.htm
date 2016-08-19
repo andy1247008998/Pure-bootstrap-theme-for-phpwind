@@ -1,0 +1,129 @@
+
+<!doctype html>
+<html>
+    <head>
+        <template source='TPL:admin.common.head' />
+    <!--<script src="{@G:url.js}/jquery.js?v{@NEXT_RELEASE}"></script>-->
+    </head>
+    <body>
+        <div class="wrap">
+            <!--# if ($forums) { #-->
+            <form class="J_ajaxForm" action="{@url:native/forum/doEdit}" method="post">
+                <div class="h_a">* 默认频道：<span class="red">移动端用户发帖时，如未选择任何版面则默认发到此版面</span></div>
+                
+                <div class="home_info">
+                <select name="fid_default">
+                            <option value="0">请选择默认板块</option>
+                <!--# 
+                    foreach($forums as $v) {  
+                        if($v['isdefault']){
+                #-->
+                            <option value="{$v['fid']}" selected>{$v['name']}</option>
+                        <!--# }else{ #-->
+                            <option value="{$v['fid']}">{$v['name']}</option>
+                        <!--# } #-->
+                <!--# } #-->
+                </select>
+                </div>
+                
+                <div class="h_a">* 移动版版块列表是否默认展开</div>
+                <div class="home_info">
+                    <ul class="switch_list cc">
+                        <li><label><input type="radio"  value="1" <!--# echo $forum_open ? "checked" : ""; #--> name="forum_open">展开</label></li>
+                        <li><label><input type="radio"  value="0" <!--# echo $forum_open ? "" : "checked"; #--> name="forum_open">不展开</label></li>
+                    </ul>
+                </div>
+                
+                <div class="h_a">*动态最新、最热数据来自于以下版面：</div>
+                <div class="table_list">
+                    <table width="100%" id="J_table_list" style="table-layout:fixed;">
+                            <colgroup>
+                                    <col width="200">
+                            </colgroup>
+                            <!--# 
+                            $i = 0;
+                            foreach($categories as $value) { 
+                            #-->
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" value="{$value['fid']}" text="{$value['name']}" name="category"/>
+                                    {$value['name']}&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            </tbody>
+                                <!--# 
+                                foreach($value['forums'] as $v) { 
+                                    $checked = $v['checked'] ? 'checked' : '';
+                                    $disabled = $v['checked'] ? '' : 'disabled';
+                                #-->
+
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" name="forums[{$i}][fid]" {$checked} value="{$v['fid']}" text="{$v['name']}" id="forum{$value['fid']}_{$v['fid']}"/>
+                                        <input type="hidden" name="forums[{$i}][order]" class="input mr5" style="width:25px;" value="0"/>
+                                        {$v['name']}&nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <!--# 
+                                $i++;
+                                } 
+                                #-->
+                            <!--# 
+                            } 
+                            #-->
+                         
+                    </table>               
+                </div>
+                
+                <div class="btn_wrap">
+                        <div class="btn_wrap_pd">
+                                <button type="submit" class="btn btn_submit">保存</button>
+                                <span class="tips_error" style="display:none">请选择默认板块</span>
+                        </div>
+                </div>
+                
+            </form>
+            <!--# }else{ #-->
+            <b>当前没有可选模板，请先添加模板！</b>
+            <!--# } #-->
+        </div>
+        <template source='TPL:admin.common.footer' />
+    </body>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            /*
+            $("input[type='checkbox']").bind('click',function(){
+                //alert($(this).attr('value')+'----'+$(this).attr('checked'));
+                var fid = $(this).attr('value');
+                if($(this).attr('checked') == 'checked'){
+                    var fname = $(this).attr('text');
+                    $(this).next().attr("disabled",false);
+                    $("select[name='fid_default']").append("<option value='"+fid+"'>"+fname+"</option>");
+                }else{
+                    $(this).next().attr("disabled",true);
+                    $("select[name='fid_default'] option[value='"+fid+"']").remove(); 
+                }
+            });
+            */
+           $("input[name='category']").bind('click',function(){
+               var cat_id = $(this).attr('value');
+               if($(this).attr('checked') == 'checked'){
+                    $("input[id^='forum"+cat_id+"_']").attr("checked","checked");
+                }else{
+                    $("input[id^='forum"+cat_id+"_']").attr("checked",false);
+                }
+           });
+            
+            $(".btn_submit").bind("click",function(){
+                if($("[name='fid_default']").val()==0){
+                    $(".tips_error").show();
+                    return false;
+                }
+            });
+        });
+    </script>
+</html>
